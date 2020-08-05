@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -35,7 +36,8 @@ public class  Main extends Application {
     public void start(final Stage stage) throws Exception {
         enableTray(stage);
 
-        GridPane grid = new GridPane();
+//        GridPane grid = new GridPane();
+        GridPane grid = (GridPane) FXMLLoader.load(getClass().getResource("sample.fxml"));
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(20);
         grid.setVgap(20);
@@ -44,8 +46,11 @@ public class  Main extends Application {
 
         Button b1 = new Button("测试1");
         Button b2 = new Button("测试2");
-        grid.add(b1, 0, 0);
+        Button myButton = new Button("圆角按钮");
+        myButton.getStyleClass().add("border-button");
+//        grid.add(b1, 0, 0);
         grid.add(b2, 1, 1);
+        grid.add(myButton, 0, 1);
 
         Scene scene = new Scene(grid, 800, 600);
         stage.setScene(scene);
@@ -56,6 +61,9 @@ public class  Main extends Application {
                 stage.hide();
             }
         });
+        scene.getStylesheets().add(
+                getClass().getResource("MainStyle.css")
+                        .toExternalForm());
     }
     //右小角,最小化.
     private void enableTray(final Stage stage) {
